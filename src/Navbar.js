@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useContext } from 'react';
 import { withStyles } from "@material-ui/core/styles";
 
 import Toolbar from "@material-ui/core/Toolbar";
@@ -13,7 +13,7 @@ import styles from "./styles/NavBarStyles";
 
 //Import ThemeContext to access data;
 import { ThemeContext } from "./contexts/ThemeContext";
-import {withLanguageContext} from "./contexts/LanguageContext";
+import { LanguageContext } from "./contexts/LanguageContext";
 
 const content={
   english:{
@@ -31,22 +31,13 @@ const content={
 }
 
 
-class Navbar extends Component {
+function Navbar(props) {
 
-  //use static to consume data from ThemeContext
-  static contextType = ThemeContext;
 
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+    const {isDarkMode, toggleTheme} = useContext(ThemeContext);
+    const { classes } = props;
 
-  render() {
-
-    const {isDarkMode, toggleTheme} = this.context;
-    const { classes } = this.props;
-
-    const {language} = this.props.LanguageContext;
+    const {language} = useContext(LanguageContext);
     const {search,flag}=content[language]
 
     return (
@@ -86,13 +77,11 @@ class Navbar extends Component {
 
             </div>
 
-
           </Toolbar>
         </AppBar>
       </div>
 
     );
   }
-}
 
-export default withLanguageContext(withStyles(styles)(Navbar));
+export default withStyles(styles)(Navbar);

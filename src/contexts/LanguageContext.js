@@ -24,11 +24,3 @@ export class LanguageProvider extends Component {
     );
   }
 }
-
-
-//Define Higher order component to reduce the complexity of the code
-export const withLanguageContext = Component => props => (
-  <LanguageContext.Consumer>
-    {value => <Component LanguageContext={value} {...props}/>}
-  </LanguageContext.Consumer>
-)
